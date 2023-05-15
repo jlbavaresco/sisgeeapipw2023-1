@@ -1,10 +1,14 @@
 const { Router } = require('express');
 
 const { getPredios, addPredio, updatePredio,
-deletePredio, getPredioPorCodigo } = require('../controllers/prediosController')
+     deletePredio, getPredioPorCodigo } = require('../controllers/prediosController')
 
 const { getSalas, addSala, updateSala, deleteSala, getSalaPorCodigo }
-     = require('../controllers/salasController')
+     = require('../controllers/salasController');
+
+const { getEquipamentoPorSala, addEquipamento, updateEquipamento,
+     deleteEquipamento, getEquipamentoPorCodigo } =
+     require('../controllers/equipamentosController');
 
 const rotas = new Router();
 
@@ -24,6 +28,17 @@ rotas.route('/salas')
 
 rotas.route('/salas/:codigo')
      .get(getSalaPorCodigo)
-     .delete(deleteSala);     
+     .delete(deleteSala);
+
+rotas.route('/equipamentos/sala/:codigosala')
+     .get(getEquipamentoPorSala)
+
+rotas.route('/equipamentos')
+     .post(addEquipamento)
+     .put(updateEquipamento);
+
+rotas.route('/equipamentos/:codigo')
+     .get(getEquipamentoPorCodigo)
+     .delete(deleteEquipamento);     
 
 module.exports = rotas;
